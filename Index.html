@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>two L Bakery</title>
+<style>
+:root{--brown:#914e3e;--cream:#fff8ef;--ink:#49332b;--line:#eadbd2}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+header{position:sticky;top:0;z-index:5;background:#fff;padding:15px 6%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px #ddd}
+.logo{font: bold 30px Georgia;color:var(--brown)}nav a{margin:0 8px;text-decoration:none;color:var(--ink);font-size:14px}
+button,.btn{background:var(--brown);color:white;border:0;padding:11px 17px;border-radius:22px;cursor:pointer;text-decoration:none;display:inline-block}
+.hero{padding:60px 8%;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;background:#f5dfd2}
+.hero h1{font: bold 48px Georgia;color:#824638;line-height:1.1}.hero img{width:100%;height:340px;object-fit:cover;border-radius:20px}
+section{padding:52px 7%}h2{text-align:center;font:34px Georgia;color:var(--brown)}.subtitle{text-align:center;color:#806d65}
+.categories{text-align:center;margin:25px}.categories button{margin:5px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 3px 12px #ddd}
+.card img{width:100%;height:210px;object-fit:cover;display:block;background:#f3e5dc}.info{padding:15px}.info h3{margin:5px 0}.price{color:var(--brown);font-weight:bold;font-size:18px}.stock{font-size:13px;color:#777}.add{width:100%;margin-top:8px}
+.promo{background:var(--brown);color:white;text-align:center;padding:30px;border-radius:20px}.promo h2{color:white}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}.about img{width:100%;border-radius:15px}
+.box{background:white;padding:22px;border-radius:15px;margin:15px 0}input,textarea,select{width:100%;padding:12px;margin:7px 0;border:1px solid var(--line);border-radius:8px}
+.cart-item{padding:12px 0;border-bottom:1px solid #eee}.cart-item button{padding:4px 10px;margin:4px}
+footer{background:#49332b;color:white;text-align:center;padding:25px}
+@media(max-width:750px){.hero,.about{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}nav{display:none}.hero h1{font-size:38px}}
+@media(max-width:480px){.products{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">two L</div>
+  <nav><a href="#beranda">Beranda</a><a href="#produk">Produk</a><a href="#promo">Promo</a><a href="#tentang">Tentang</a><a href="#kontak">Kontak</a><a href="#pesanan">Keranjang</a></nav>
+  <a class="btn" href="#pesanan">Keranjang <span id="jumlah">0</span></a>
+</header>
+
+<section class="hero" id="beranda">
+  <div><p>FRESHLY BAKED WITH LOVE</p><h1>Sweet Moments Begin Here!</h1>
+    <p>Selamat datang di two L Bakery. Nikmati berbagai pilihan roti, cake, pastry, cookies, dan aneka kue lezat untuk menemani setiap momen istimewa.</p>
+    <a href="#produk" class="btn">Lihat Produk</a>
+  </div>
+  <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900" alt="Aneka roti bakery">
+</section>
+
+<section>
+  <h2>Welcome to two L</h2><p class="subtitle">Freshly baked with love, specially made for you.</p>
+</section>
+
+<section id="produk">
+  <h2>Our Products</h2><p class="subtitle">Pilih roti dan kue favoritmu.</p>
+  <div class="categories">
+    <button onclick="filterProduk('Semua')">Semua</button>
+    <button onclick="filterProduk('Roti')">Roti</button>
+    <button onclick="filterProduk('Pastry')">Pastry</button>
+    <button onclick="filterProduk('Donat')">Donat</button>
+    <button onclick="filterProduk('Cake')">Cake & Tart</button>
+    <button onclick="filterProduk('Cookies')">Cookies</button>
+    <button onclick="filterProduk('Brownies')">Brownies</button>
+  </div>
+  <div class="products" id="products"></div>
+</section>
+
+<section id="promo">
+  <div class="promo"><h2>Special Offer!</h2><h3>Diskon 10% untuk pembelian pertama</h3>
+    <p>Gunakan kode promo: <b>TWOL10</b></p><a href="#pesanan" class="btn" style="background:white;color:#914e3e">Pesan Sekarang</a>
+  </div>
+</section>
+
+<section id="tentang">
+  <div class="about">
+    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=900" alt="Croissant dan pastry">
+    <div><h2>Tentang two L</h2>
+      <p>two L adalah toko roti dan kue yang menyediakan berbagai pilihan bakery dengan cita rasa lezat dan tampilan menarik.</p>
+      <p>Kami menghadirkan aneka roti, donat, croissant, brownies, cake, tart, cookies, dan pastry untuk menemani aktivitas serta momen spesial pelanggan.</p>
+      <p>Kepuasan pelanggan dan kualitas produk menjadi prioritas kami.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pesanan">
+  <h2>Keranjang Belanja</h2>
+  <div class="box">
+    <div id="cart">Keranjang masih kosong.</div><hr>
+    <p>Subtotal: <b id="subtotal">Rp0</b></p>
+    <p>Pengiriman: <b id="ongkir">Rp0</b></p>
+    <h3>Total: <span id="total">Rp0</span></h3>
+  </div>
+  <div class="box">
+    <h2>Form Pemesanan</h2>
+    <form onsubmit="kirimPesanan(event)">
+      <label>Nama Lengkap</label><input id="nama" required placeholder="Masukkan nama">
+      <label>Nomor WhatsApp</label><input id="nomor" required type="tel" placeholder="08xxxxxxxxxx">
+      <label>Alamat Pengiriman</label><textarea id="alamat" required placeholder="Alamat lengkap"></textarea>
+      <label>Tanggal Pemesanan</label><input id="tanggal" type="date" required>
+      <label>Metode Penerimaan</label><select id="metode" onchange="renderCart()"><option value="Diantar">Diantar</option><option value="Ambil di toko">Ambil di toko</option></select>
+      <label>Catatan Pesanan</label><textarea id="catatan" placeholder="Catatan tambahan"></textarea>
+      <button type="submit">Pesan via WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<section id="kontak">
+  <h2>Contact Us</h2>
+  <div class="box">
+    <p><b>Nama Toko:</b> two L Bakery</p>
+    <p><b>Alamat:</b> Jl. Slamet Riyadi No. 68, Solo</p>
+    <p><b>WhatsApp:</b> <a href="https://wa.me/6285647612072">085647612072</a></p>
+    <p><b>Email:</b> <a href="mailto:laurapramesti2@gmail.com">laurapramesti2@gmail.com</a></p>
+    <p><b>Instagram:</b> <a href="https://www.instagram.com/lalaprsmtii_/" target="_blank" rel="noopener">@lalaprsmtii_</a></p>
+    <p><b>Jam Operasional:</b> Setiap hari, 07.30–22.00 WIB</p>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Jl+Slamet+Riyadi+No+68+Solo" target="_blank" rel="noopener">Buka Google Maps</a>
+  </div>
+  <iframe title="Peta lokasi two L Bakery" width="100%" height="300" style="border:0;border-radius:15px" loading="lazy" src="https://maps.google.com/maps?q=Jl%20Slamet%20Riyadi%20No%2068%20Solo&output=embed"></iframe>
+</section>
+
+<footer><h2 style="color:white">two L Bakery</h2><p>Freshly baked with love.</p><p>© 2026 two L Bakery</p></footer>
+
+<script>
+const produk=[
+ {nama:"Roti Sobek",kategori:"Roti",harga:18000,stok:15,gambar:"https://images.unsplash.com/photo-1608198093002-ad4e005484df?w=600",deskripsi:"Roti lembut dengan isian cokelat."},
+ {nama:"Croissant",kategori:"Pastry",harga:22000,stok:12,gambar:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600",deskripsi:"Pastry renyah dan buttery."},
+ {nama:"Donat Cokelat",kategori:"Donat",harga:12000,stok:20,gambar:"https://images.unsplash.com/photo-1527515545081-5db817172677?w=600",deskripsi:"Donat lembut dengan topping cokelat."},
+ {nama:"Brownies",kategori:"Brownies",harga:45000,stok:10,gambar:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600",deskripsi:"Brownies cokelat yang lembut."},
+ {nama:"Strawberry Cake",kategori:"Cake",harga:85000,stok:7,gambar:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600",deskripsi:"Cake dengan krim stroberi."},
+ {nama:"Cookies Choco Chip",kategori:"Cookies",harga:30000,stok:20,gambar:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600",deskripsi:"Cookies renyah dengan choco chip."},
+ {nama:"Cinnamon Roll",kategori:"Roti",harga:20000,stok:14,gambar:"https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600",deskripsi:"Roti gulung dengan aroma kayu manis."},
+ {nama:"Tart Buah",kategori:"Cake",harga:95000,stok:6,gambar:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600",deskripsi:"Tart dengan topping buah."}
+];
+let keranjang={};
+const rupiah=n=>"Rp"+n.toLocaleString("id-ID");
+function tampilkan(kategori="Semua"){
+ document.getElementById("products").innerHTML=produk.map((p,i)=>{
+  if(kategori!=="Semua"&&p.kategori!==kategori)return "";
+  return `<article class="card"><img src="${p.gambar}" alt="Foto produk ${p.nama}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600'"><div class="info"><h3>${p.nama}</h3><p>${p.deskripsi}</p><p class="price">${rupiah(p.harga)}</p><p class="stock">Stok tersedia: ${p.stok}</p><button class="add" onclick="tambah(${i})">Tambah ke Keranjang</button></div></article>`;
+ }).join("");
+}
+function filterProduk(k){tampilkan(k)}
+function tambah(i){
+ if((keranjang[i]||0)>=produk[i].stok){alert("Stok tidak mencukupi.");return}
+ keranjang[i]=(keranjang[i]||0)+1;renderCart();
+}
+function ubah(i,n){
+ keranjang[i]=(keranjang[i]||0)+n;
+ if(keranjang[i]<=0)delete keranjang[i];
+ if(keranjang[i]>produk[i].stok)keranjang[i]=produk[i].stok;
+ renderCart();
+}
+function renderCart(){
+ let html="",subtotal=0,jumlah=0;
+ Object.keys(keranjang).forEach(i=>{
+  let q=keranjang[i],p=produk[i];subtotal+=p.harga*q;jumlah+=q;
+  html+=`<div class="cart-item"><b>${p.nama}</b> — ${rupiah(p.harga)} × ${q}<br><button type="button" onclick="ubah(${i},-1)">−</button> ${q} <button type="button" onclick="ubah(${i},1)">+</button></div>`;
+ });
+ document.getElementById("cart").innerHTML=html||"Keranjang masih kosong.";
+ let ongkir=jumlah&&document.getElementById("metode").value==="Diantar"?10000:0;
+ document.getElementById("jumlah").textContent=jumlah;
+ document.getElementById("subtotal").textContent=rupiah(subtotal);
+ document.getElementById("ongkir").textContent=rupiah(ongkir);
+ document.getElementById("total").textContent=rupiah(subtotal+ongkir);
+}
+function kirimPesanan(e){
+ e.preventDefault();
+ if(!Object.keys(keranjang).length){alert("Silakan pilih produk terlebih dahulu.");return}
+ let daftar="",subtotal=0;
+ Object.keys(keranjang).forEach(i=>{
+  let p=produk[i],q=keranjang[i];daftar+=`- ${p.nama} x ${q} = ${rupiah(p.harga*q)}\n`;subtotal+=p.harga*q;
+ });
+ let metode=document.getElementById("metode").value,ongkir=metode==="Diantar"?10000:0;
+ let pesan=`Halo two L Bakery, saya ingin memesan:\n${daftar}\nSubtotal: ${rupiah(subtotal)}\nPengiriman: ${rupiah(ongkir)}\nTotal: ${rupiah(subtotal+ongkir)}\n\nNama: ${document.getElementById("nama").value}\nNomor: ${document.getElementById("nomor").value}\nAlamat: ${document.getElementById("alamat").value}\nTanggal: ${document.getElementById("tanggal").value}\nMetode: ${metode}\nCatatan: ${document.getElementById("catatan").value}`;
+ window.open("https://wa.me/6285647612072?text="+encodeURIComponent(pesan),"_blank");
+}
+tampilkan();renderCart();
+</script>
+</body>
+</html>
